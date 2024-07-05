@@ -24,21 +24,15 @@ module tt_um_example (
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, clk, rst_n, 1'b0};
 
-    tt_um_jtag_test_logic top(.tck(clk),
-                              .trst(rst_n), 
-                              .tms(ui_in[0]),
-                              .tdi(uio_in[1]),
-                              .bsr_tdo(ui_in[2]),
-                              .sys_clk(ui_in[3]),
-                              .tdo(uo_out[0]),
-                              .bsr_tdi(uo_out[1]),
-                              .bsr_clk(uo_out[2]),
-                              .bsr_update(uo_out[3]),
-                              .bsr_shift(uo_out[4]),
-                              .bsr_mode(uo_out[5]),
-                              .dbg_clk(uo_out[6]),
-                              .dm_reset(uo_out[7])
-                              
-                             );
+    tt_um_top top(.tck(clk),
+                  .tms(ui_in[1]),
+                  .tdi(uio_in[0]),
+                  .trst(rst_n),
+                  .sys_clk(ui_in[2]),
+                  .sys_reset(ui_in[3]),
+                  .tdo(uo_out[0]),
+                  .success(uo_out[1]),
+                  .fail(uo_out[2])
+                e );
 
 endmodule
