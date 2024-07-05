@@ -1,4 +1,4 @@
-module tt_um_jtag_test_logic (
+module jtag_test_logic (
     `include "defines.sv"
 
     input  tck, tms, tdi, trst,
