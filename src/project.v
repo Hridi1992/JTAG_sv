@@ -28,7 +28,7 @@ module tt_um_example (
                               .trst(rst_n), 
                               .tms(ui_in[0]),
                               .tdi(uio_in[1]),
-                               .bsr_tdo(ui_in[2]),
+                              .bsr_tdo(ui_in[2]),
                               .sys_clk(ui_in[3]),
                               .tdo(uo_out[0]),
                               .bsr_tdi(uo_out[1]),
