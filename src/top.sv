@@ -2,7 +2,7 @@
 //  alongside example system logic and boundary scan register
 
 
-module tt_um_top #(parameter IMEM_INIT_FILE="../RISCV_pipe/riscvtest/riscvtest.mem") (    
+module tt_um_jtag_top #(parameter IMEM_INIT_FILE="../src/Memory/riscvtest.mem") (    
     // jtag logic
     (* mark_debug = "true" *) input tck,tdi,tms,trst,
     (* mark_debug = "true" *) output tdo,
@@ -14,7 +14,7 @@ module tt_um_top #(parameter IMEM_INIT_FILE="../RISCV_pipe/riscvtest/riscvtest.m
     (* mark_debug = "true" *) output logic success, fail  // PHY DEBUG
 );
 
-logic [8:0] bsr_chain;
+    logic [6:0] bsr_chain;
 
 logic bsr_tdi, bsr_clk, bsr_update, bsr_shift, bsr_mode, bsr_tdo;
 
