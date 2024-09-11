@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_example (
+module tt_um_jtag (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -17,22 +17,25 @@ module tt_um_example (
 );
 
   // All output pins must be assigned. If not used, assign to 0.
-  
+  //assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
   assign uio_out = 0;
   assign uio_oe  = 0;
+    assign uo_out[7:3] = 5'b0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+    wire _unused = &{ena, ui_in[7:4], uio_in[7:0], 1'b0};
 
-    tt_um_top top(.tck(clk),
-                  .tms(ui_in[1]),
-                  .tdi(uio_in[0]),
-                  .trst(rst_n),
-                  .sys_clk(ui_in[2]),
-                  .sys_reset(ui_in[3]),
-                  .tdo(uo_out[0]),
-                  .success(uo_out[1]),
-                  .fail(uo_out[2])
-                 );
- 
+    tt_um_jtag_top #(.IMEM_INIT_FILE("../src/Memory/riscvtest.mem")) top(
+        .tck(clk),
+        .tdi(ui_in[0]),
+        .tms(ui_in[1]),
+        .trst(rst_n),
+        .tdo(uo_out[0]),
+        .sysclk(ui_in[2]),
+        .sys_reset(ui_in[3]),
+        .success(uo_out[1]),
+        .fail(uo_out[2])
+    );
+        
+
 endmodule
